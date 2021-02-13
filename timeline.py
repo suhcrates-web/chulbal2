@@ -1,5 +1,5 @@
 from datetime import datetime
-from chul_ma import chul_ma, magam
+from chul_ma import chul_ma
 # import article
 # from make_dict import make_dict, magam_check, yon_data
 # import post
