@@ -29,8 +29,8 @@ def chul_ma(chul_ma):
         rm = '마감'
     while not kospi_did  and not kosdaq_did and not exch_did and not second_bo_did:
         today = datetime.today().strftime("%Y%m%d")
-        # url = 'https://www.yna.co.kr/news/1'  # 전체 '최신기사'에 먼저 뜨고 '경제 전체기사'에는 좀 나중에 듬.
-        url ='https://www.yna.co.kr/economy/all/1'
+        url = 'https://www.yna.co.kr/news/1'  # 전체 '최신기사'에 먼저 뜨고 '경제 전체기사'에는 좀 나중에 듬.
+        # url ='https://www.yna.co.kr/economy/all/1'
         req = requests.get(url)
         be_0 = BeautifulSoup(req.text, 'html.parser')
         li_list = be_0.find('div', {'class':'section01'}).find_all('li')
