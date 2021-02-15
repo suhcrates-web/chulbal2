@@ -27,10 +27,10 @@ def chul_ma(chul_ma):
         ex_word = '마감'
         cm_num = '2'
         rm = '마감'
-    while not kospi_did  and not kosdaq_did and not exch_did and not second_bo_did:
-        today = datetime.today().strftime("%Y%m%d")
-        url = 'https://www.yna.co.kr/news/1'  # 전체 '최신기사'에 먼저 뜨고 '경제 전체기사'에는 좀 나중에 듬.
-        # url ='https://www.yna.co.kr/economy/all/1'
+    today = datetime.today().strftime("%Y%m%d")
+    url = 'https://www.yna.co.kr/news/1'  # 전체 '최신기사'에 먼저 뜨고 '경제 전체기사'에는 좀 나중에 듬.
+    # url ='https://www.yna.co.kr/economy/all/1'
+    while not (kospi_did or kosdaq_did or exch_did or second_bo_did):
         req = requests.get(url)
         be_0 = BeautifulSoup(req.text, 'html.parser')
         li_list = be_0.find('div', {'class':'section01'}).find_all('li')
@@ -65,11 +65,11 @@ def chul_ma(chul_ma):
                 li_er_n +=1
                 pass #중간에 광고 껴있어서.
         # print(tit_list)
-        print(f'li 에러 {li_er_n}개 있음')
+        print(f'li 중 에러 {li_er_n}개 있음')
         if not (kospi_up or kosdaq_up or exch_up):
             print('연합 아직 암것도 안뜸')
         else:
-            print('코스피:'+str(kospi_up)+'\n'+'코스닥:'+str(kosdaq_up)+'\n'+'코스피:'+str(kosdaq_up)+'\n')
+            print('뜬곳\n'+'코스피:'+str(kospi_up)+'\n'+'코스닥:'+str(kosdaq_up)+'\n'+'코스피:'+str(kosdaq_up)+'\n')
 
 
             #{'send': {'title': '[달러/원] 환율 2.5원 내린 1100.7원 마감 ', 'article': '13일 달러/원'}, 'data': {'원/달러': {'name': '원/달러', 'num': '1100.7', 'plma': False, 'plma_ment': '내린', 'point': '2.5', 'rate': '0'}}}
@@ -121,6 +121,7 @@ def chul_ma(chul_ma):
             print('2보 작성 완료')
 
         time.sleep(10) #10초 간격으로 수행.
+    print('시황 끝')
     time.sleep(600) #다 끝나면 10분 쉼
 
 
