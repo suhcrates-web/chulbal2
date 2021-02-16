@@ -28,9 +28,16 @@ def chul_ma(chul_ma):
         cm_num = '2'
         rm = '마감'
     today = datetime.today().strftime("%Y%m%d")
-    url = 'https://www.yna.co.kr/news/1'  # 전체 '최신기사'에 먼저 뜨고 '경제 전체기사'에는 좀 나중에 듬.
-    # url ='https://www.yna.co.kr/economy/all/1'
-    while not (kospi_did or kosdaq_did or exch_did or second_bo_did):
+    n = 1
+
+
+    while not (kospi_did and kosdaq_did and exch_did and second_bo_did):
+        if n % 2 == 1:
+            url = 'https://www.yna.co.kr/news/1'  # 전체 '최신기사'에 먼저 뜨고 '경제 전체기사'에는 좀 나중에 듬.
+        else:
+            url ='https://www.yna.co.kr/economy/all/1'
+        n+=1
+
         req = requests.get(url)
         be_0 = BeautifulSoup(req.text, 'html.parser')
         li_list = be_0.find('div', {'class':'section01'}).find_all('li')
@@ -120,7 +127,7 @@ def chul_ma(chul_ma):
             post.do_mbot(title=art['title'], article=art['article'], rcept_no = str(today) + cm_num+ '4', rm=rm)
             print('2보 작성 완료')
 
-        time.sleep(10) #10초 간격으로 수행.
+        time.sleep(5) #10초 간격으로 수행.
     print('시황 끝')
     time.sleep(600) #다 끝나면 10분 쉼
 
